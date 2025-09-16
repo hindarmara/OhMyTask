@@ -1,0 +1,33 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to OhMyTasks!</h1>
+    <p class="lead">Your personal task management application</p>
+    
+    <div class="row mt-5">
+        <div class="col-md-4 offset-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="fas fa-tasks"></i> Get Started
+                    </h5>
+                    <p class="card-text">Manage your tasks efficiently with our simple and intuitive interface.</p>
+                    <div class="d-grid gap-2">
+                        <a asp-page="/Tasks/Index" class="btn btn-primary">
+                            <i class="fas fa-eye"></i> View All Tasks
+                        </a>
+                        <a asp-page="/Tasks/Create" class="btn btn-outline-primary">
+                            <i class="fas fa-plus"></i> Create New Task
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
