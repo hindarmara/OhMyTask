@@ -1,0 +1,55 @@
+@page
+@model TasksManagerWeb.Pages.Tasks.EditModel
+@{
+    ViewData["Title"] = "Edit Task";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="mb-0">
+                        <i class="fas fa-edit"></i> Edit Task
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                        
+                        <input type="hidden" asp-for="TaskItem.Id" />
+                        <input type="hidden" asp-for="TaskItem.CreatedAt" />
+                        
+                        <div class="mb-3">
+                            <label asp-for="TaskItem.Description" class="form-label">Task Description</label>
+                            <textarea asp-for="TaskItem.Description" class="form-control" rows="3"></textarea>
+                            <span asp-validation-for="TaskItem.Description" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" asp-for="TaskItem.IsCompleted" />
+                                <label class="form-check-label" asp-for="TaskItem.IsCompleted">
+                                    Mark as completed
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a asp-page="./Index" class="btn btn-secondary me-md-2">
+                                <i class="fas fa-arrow-left"></i> Back to Tasks
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Update Task
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
