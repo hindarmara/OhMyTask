@@ -1,0 +1,80 @@
+@page "/"
+@model IndexModel
+@{
+    ViewData["Title"] = "Task Manager";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h1>Task Manager</h1>
+        <p>Welcome to the Oh My Tasks application! Manage your tasks efficiently.</p>
+        
+        <div class="mb-3">
+            <a asp-page="./Create" class="btn btn-primary">Add New Task</a>
+        </div>
+
+        @if (Model.Tasks.Any())
+        {
+            <div class="card">
+                <div class="card-header">
+                    <h3>Your Tasks</h3>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Status</th>
+                                    <th>Description</th>
+                                    <th>Created</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var task in Model.Tasks)
+                                {
+                                    <tr class="@(task.IsCompleted ? "table-success" : "")">
+                                        <td>
+                                            @if (task.IsCompleted)
+                                            {
+                                                <span class="badge bg-success">✓ Complete</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge bg-warning">○ Pending</span>
+                                            }
+                                        </td>
+                                        <td class="@(task.IsCompleted ? "text-decoration-line-through" : "")">
+                                            @task.Description
+                                        </td>
+                                        <td>@task.CreatedAt.ToString("MMM dd, yyyy")</td>
+                                        <td>
+                                            @if (!task.IsCompleted)
+                                            {
+                                                <form method="post" asp-page-handler="Complete" asp-route-id="@task.Id" class="d-inline">
+                                                    <button type="submit" class="btn btn-sm btn-success">Mark Complete</button>
+                                                </form>
+                                            }
+                                            <a asp-page="./Edit" asp-route-id="@task.Id" class="btn btn-sm btn-outline-primary">Edit</a>
+                                            <form method="post" asp-page-handler="Delete" asp-route-id="@task.Id" class="d-inline"
+                                                  onsubmit="return confirm('Are you sure you want to delete this task?')">
+                                                <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-info">
+                <h4>No tasks found</h4>
+                <p>You haven't created any tasks yet. <a asp-page="./Create">Create your first task</a> to get started!</p>
+            </div>
+        }
+    </div>
+</div>
